@@ -3,6 +3,7 @@
 namespace DayCod\ArtisanBackup\Console\Commands;
 
 use DayCod\ArtisanBackup\ArtisanBackup;
+use DayCod\ArtisanBackup\Define;
 use Illuminate\Console\Command;
 
 class BackupCommand extends Command
@@ -28,6 +29,17 @@ class BackupCommand extends Command
      */
     public function handle()
     {
-        $this->info(ArtisanBackup::mysql());
+        if (!file_exists( base_path(Define::DATABASE_PATH).$this->option('type') )) {
+            mkdir(base_path(Define::DATABASE_PATH).$this->option('type'), 0775, true);
+        }
+
+        ArtisanBackup::mysql(
+            config('database.connection.mysql.host'),
+            config('database.connections.mysql.username'),
+            config('database.connections.mysql.password'),
+            config('database.connections.mysql.database'),
+            '*',
+            $this->option('type')
+        );
     }
 }
