@@ -76,7 +76,7 @@ class BackupFunc
         }
 
         //save file
-        $fileName = base_path(Define::DATABASE_PATH).$option.'/db-backup-' . time() . '-' . (md5(implode(',', $tables))) . '.sql';
+        $fileName = base_path(Define::DATABASE_PATH).$option.Helpers::FILENAME('.sql');
         $handle = fopen($fileName, 'w+');
         fwrite($handle, $return);
         if (fclose($handle)) {
