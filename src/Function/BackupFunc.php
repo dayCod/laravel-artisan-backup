@@ -3,6 +3,7 @@
 namespace DayCod\ArtisanBackup\Function;
 
 use DayCod\ArtisanBackup\Define;
+use Illuminate\Support\Facades\DB;
 
 class BackupFunc
 {

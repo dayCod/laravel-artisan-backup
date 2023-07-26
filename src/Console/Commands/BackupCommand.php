@@ -29,17 +29,30 @@ class BackupCommand extends Command
      */
     public function handle()
     {
-        if (!file_exists( base_path(Define::DATABASE_PATH).$this->option('type') )) {
-            mkdir(base_path(Define::DATABASE_PATH).$this->option('type'), 0775, true);
+        $this->info('');
+
+        if (!in_array($this->option('type'), ['mysql'])) {
+            $this->info('Type doesn`t exists');
         }
 
-        ArtisanBackup::mysql(
-            config('database.connection.mysql.host'),
-            config('database.connections.mysql.username'),
-            config('database.connections.mysql.password'),
-            config('database.connections.mysql.database'),
-            '*',
-            $this->option('type')
-        );
+        if (in_array($this->option('type'), ['mysql'])) {
+
+            if (!file_exists( base_path(Define::DATABASE_PATH).$this->option('type') )) {
+                mkdir(base_path(Define::DATABASE_PATH).$this->option('type'), 0775, true);
+            }
+
+            if ($this->option('type') == "mysql") {
+                ArtisanBackup::mysql(
+                    config('database.connection.mysql.host'),
+                    config('database.connections.mysql.username'),
+                    config('database.connections.mysql.password'),
+                    config('database.connections.mysql.database'),
+                    '*',
+                    $this->option('type')
+                );
+            }
+
+        }
+
     }
 }
