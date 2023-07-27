@@ -6,6 +6,16 @@ Laravel Artisan Backup is Package for Backup and Restore The Database, Artisan B
 composer require daycode/artisan-backup
 ```
 
+Go to config/app.php, then put these code on service providers
+```php
+'providers' => [
+    /*
+    * Package Service Providers...
+    */
+    \DayCod\ArtisanBackup\ArtisanBackupServiceProvider::class,
+],
+```
+
 Last, for make sure this package installed correctly.
 ```bash
 composer dump-autoload && php artisan optimize:clear
