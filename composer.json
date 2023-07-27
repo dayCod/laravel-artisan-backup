@@ -14,5 +14,17 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DayCod\\ArtisanBackup\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DayCod\\ArtisanBackup\\ArtisanBackupServiceProvider"
+            ]
+        }
+    }
 }
