@@ -36,7 +36,7 @@ php artisan backup:db --type=mysql
 
 ## Contributors
 - [Wirandra Alaya](https://github.com/dayCod)
-- [see all contributors](https://github.com/dayCod/laravel-artisan-backup/contributors)
+- [See All Contributors](https://github.com/dayCod/laravel-artisan-backup/contributors)
 
 ## License
 This project is released under the [MIT](http://opensource.org/licenses/MIT) license.
