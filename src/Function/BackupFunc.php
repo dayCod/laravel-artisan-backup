@@ -7,7 +7,19 @@ use Illuminate\Support\Facades\DB;
 
 class BackupFunc
 {
-    public function mysql($host, $user, $pass, $dbname, $tables = Define::SELECT_ALL_TABLES, $option = Define::EMPTY_STRING)
+    /**
+     * Method for handling backup database from MySQL.
+     *
+     * @param string $host = Host of database
+     * @param string $user = User of database
+     * @param string $pass = Password of database
+     * @param string $dbname = Database Name
+     * @param string $tables = Name of Tables
+     * @param string $option = File Option
+     * 
+     * @return void
+     */
+    public function mysql($host, $user, $pass, $dbname, $tables = Define::SELECT_ALL_TABLES, $option = Define::EMPTY_STRING) :void
     {
         $link = mysqli_connect($host, $user, $pass, $dbname);
 
