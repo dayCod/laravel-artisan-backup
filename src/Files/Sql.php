@@ -9,12 +9,12 @@ class Sql extends BackupRestoreFile
     /**
      * Method for write backup SQL file from MySQL Database.
      *
-     * @param $databaseConnection = MySQL Server Connection
+     * @param object|false $databaseConnection = MySQL Server Connection
      * @param array $tables = Array of tables that you want to backup
      *
      * @return string $fileContent
      */
-    public function writeBackupFileFromSQL($databaseConnection, array $tables) :string
+    public function writeBackupFileFromSQL(object|false $databaseConnection, array $tables) :string
     {
         $fileContent = '';
 
