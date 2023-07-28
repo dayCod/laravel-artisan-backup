@@ -36,12 +36,22 @@ composer dump-autoload && php artisan optimize:clear
 ## Usage Guide
 
 ### MySQL Backup
+#### SQL Format
 ```bash
-php artisan backup:db -t mysql 
+php artisan backup:mysql -t sql
 ```
 Or
 ```bash
-php artisan backup:db --type=mysql
+php artisan backup:mysql --type=sql
+```
+
+#### JSON Format
+```bash
+php artisan backup:mysql -t json
+```
+Or
+```bash
+php artisan backup:mysql --type=json
 ```
 
 ## Contributors
