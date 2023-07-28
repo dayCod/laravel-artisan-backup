@@ -1,5 +1,5 @@
 # Laravel Artisan Backup
-Laravel Artisan Backup is Package for Backup and Restore The Database, Artisan Backup made fast and easy
+Laravel Artisan Backup is Package for Backup The Database, Super Fast and Easy with Artisan Backup
 
 ## Installation Guide
 ```bash

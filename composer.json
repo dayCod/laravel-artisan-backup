@@ -1,7 +1,7 @@
 {
     "name": "daycode/artisan-backup",
     "type": "library",
-    "description": "Laravel Artisan Backup is Package for Backup and Restore The Database, Artisan Backup made fast and easy",
+    "description": "Laravel Artisan Backup is Package for Backup The Database, Super Fast and Easy with Artisan Backup",
     "license": "MIT",
     "authors": [
         {
