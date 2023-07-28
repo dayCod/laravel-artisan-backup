@@ -17,7 +17,7 @@ class BackupFunc
      * @param string $dbname = Database Name
      * @param string $tables = Name of Tables
      * @param string $option = File Option
-     * 
+     *
      * @return void
      */
     public function mysql($host, $user, $pass, $dbname, $tables = Define::SELECT_ALL_TABLES, $option = Define::EMPTY_STRING) :void
@@ -50,7 +50,7 @@ class BackupFunc
             $jsonInstance = new Json();
             $fileContent = $jsonInstance->writeBackupFileFromSQL($databaseConnection, $tables);
         }
-        
+
         //save file
         $fileName = base_path(Define::DATABASE_PATH)."mysql/$option".Helpers::FILENAME($option);
         $handle = fopen($fileName, 'w+');

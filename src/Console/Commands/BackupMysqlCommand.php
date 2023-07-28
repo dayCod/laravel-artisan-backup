@@ -6,7 +6,7 @@ use DayCod\ArtisanBackup\ArtisanBackup;
 use DayCod\ArtisanBackup\Define;
 use Illuminate\Console\Command;
 
-class BackupCommand extends Command
+class BackupMysqlCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -34,7 +34,7 @@ class BackupCommand extends Command
                 if (!file_exists( base_path(Define::DATABASE_PATH).'mysql/'.$this->option('type') )) {
                     mkdir(base_path(Define::DATABASE_PATH).'mysql/'.$this->option('type'), 0775, true);
                 }
-    
+
                 ArtisanBackup::mysql(
                     config('database.connection.mysql.host'),
                     config('database.connections.mysql.username'),
@@ -43,7 +43,7 @@ class BackupCommand extends Command
                     '*',
                     $this->option('type')
                 );
-    
+
             }else{
                 $this->info('Type doesn`t exists');
             }
@@ -58,7 +58,7 @@ class BackupCommand extends Command
                 if (!file_exists( base_path(Define::DATABASE_PATH).'mysql/'.$typeChoice )) {
                     mkdir(base_path(Define::DATABASE_PATH).'mysql/'.$typeChoice, 0775, true);
                 }
-        
+
                 ArtisanBackup::mysql(
                     config('database.connection.mysql.host'),
                     config('database.connections.mysql.username'),

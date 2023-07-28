@@ -2,22 +2,22 @@
 
 namespace DayCod\ArtisanBackup\Files;
 
-use DayCod\ArtisanBackup\Function\BackupRestoreFile;
+use DayCod\ArtisanBackup\Abstract\BackupRestoreFile;
 
 class Sql extends BackupRestoreFile
 {
     /**
      * Method for write backup SQL file from MySQL Database.
      *
-     * @param mysqli $databaseConnection = MySQL Server Connection
+     * @param $databaseConnection = MySQL Server Connection
      * @param array $tables = Array of tables that you want to backup
-     * 
+     *
      * @return string $fileContent
      */
     public function writeBackupFileFromSQL($databaseConnection, array $tables) :string
     {
         $fileContent = '';
-        
+
         //cycle through
         foreach ($tables as $table) {
             $tableRecords = mysqli_query($databaseConnection, 'SELECT * FROM ' . $table);

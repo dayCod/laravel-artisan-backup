@@ -1,6 +1,6 @@
 <?php
 
-namespace DayCod\ArtisanBackup\Function;
+namespace DayCod\ArtisanBackup\Abstract;
 
 abstract class BackupRestoreFile
 {

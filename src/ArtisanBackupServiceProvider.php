@@ -2,7 +2,7 @@
 
 namespace DayCod\ArtisanBackup;
 
-use DayCod\ArtisanBackup\Console\Commands\BackupCommand;
+use DayCod\ArtisanBackup\Console\Commands\BackupMysqlCommand;
 use DayCod\ArtisanBackup\Function\BackupFunc;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,7 +19,7 @@ class ArtisanBackupServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                BackupCommand::class,
+                BackupMysqlCommand::class,
             ]);
         }
     }
