@@ -24,5 +24,12 @@ class Define
      * @var string $rules
      */
     CONST EMPTY_STRING = "";
+
+    /**
+     * Define available backup file type.
+     *
+     * @var string $rules
+     */
+    CONST AVAILABLE_BACKUP_TYPE = ['sql', 'json'];
 }
 

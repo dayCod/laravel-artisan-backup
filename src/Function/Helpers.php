@@ -3,6 +3,7 @@
 namespace DayCod\ArtisanBackup\Function;
 
 use InvalidArgumentException;
+use DayCod\ArtisanBackup\Define;
 
 class Helpers
 {
@@ -15,8 +16,8 @@ class Helpers
      */
     public static function FILENAME(string $format): string
     {
-        if (!in_array($format, ['.sql']) || $format == "") throw new InvalidArgumentException('format argument must have a valid format');
+        if (!in_array($format, Define::AVAILABLE_BACKUP_TYPE) || $format == "") throw new InvalidArgumentException('format argument must have a valid format');
 
-        return '/db-backup-'.time().'.sql';
+        return '/db-backup-'.time().".$format";
     }
 }

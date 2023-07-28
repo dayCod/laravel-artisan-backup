@@ -3,7 +3,8 @@
 namespace DayCod\ArtisanBackup\Function;
 
 use DayCod\ArtisanBackup\Define;
-use Illuminate\Support\Facades\DB;
+use DayCod\ArtisanBackup\Files\Sql;
+use DayCod\ArtisanBackup\Files\Json;
 
 class BackupFunc
 {
@@ -21,7 +22,7 @@ class BackupFunc
      */
     public function mysql($host, $user, $pass, $dbname, $tables = Define::SELECT_ALL_TABLES, $option = Define::EMPTY_STRING) :void
     {
-        $link = mysqli_connect($host, $user, $pass, $dbname);
+        $databaseConnection = mysqli_connect($host, $user, $pass, $dbname);
 
         // Check connection
         if (mysqli_connect_errno()) {
@@ -29,12 +30,12 @@ class BackupFunc
             exit;
         }
 
-        mysqli_query($link, "SET NAMES 'utf8'");
+        mysqli_query($databaseConnection, "SET NAMES 'utf8'");
 
         //get all of the tables
         if ($tables == '*') {
             $tables = array();
-            $result = mysqli_query($link, 'SHOW TABLES');
+            $result = mysqli_query($databaseConnection, 'SHOW TABLES');
             while ($row = mysqli_fetch_row($result)) {
                 $tables[] = $row[0];
             }
@@ -42,56 +43,19 @@ class BackupFunc
             $tables = is_array($tables) ? $tables : explode(',', $tables);
         }
 
-        $return = '';
-        //cycle through
-        foreach ($tables as $table) {
-            $result = mysqli_query($link, 'SELECT * FROM ' . $table);
-            $num_fields = mysqli_num_fields($result);
-            $num_rows = mysqli_num_rows($result);
-
-            $return .= 'DROP TABLE IF EXISTS ' . $table . ';';
-            $row2 = mysqli_fetch_row(mysqli_query($link, 'SHOW CREATE TABLE ' . $table));
-            $return .= "\n\n" . $row2[1] . ";\n\n";
-            $counter = 1;
-
-            //Over tables
-            for ($i = 0; $i < $num_fields; $i++) {   //Over rows
-                while ($row = mysqli_fetch_row($result)) {
-                    if ($counter == 1) {
-                        $return .= 'INSERT INTO ' . $table . ' VALUES(';
-                    } else {
-                        $return .= '(';
-                    }
-
-                    //Over fields
-                    for ($j = 0; $j < $num_fields; $j++) {
-                        $row[$j] = addslashes($row[$j]);
-                        $row[$j] = str_replace("\n", "\\n", $row[$j]);
-                        if (isset($row[$j])) {
-                            $return .= '"' . $row[$j] . '"';
-                        } else {
-                            $return .= '""';
-                        }
-                        if ($j < ($num_fields - 1)) {
-                            $return .= ',';
-                        }
-                    }
-
-                    if ($num_rows == $counter) {
-                        $return .= ");\n";
-                    } else {
-                        $return .= "),\n";
-                    }
-                    ++$counter;
-                }
-            }
-            $return .= "\n\n\n";
+        if($option == 'sql'){
+            $sqlInstance = new Sql();
+            $fileContent = $sqlInstance->writeBackupFileFromSQL($databaseConnection, $tables);
+        }elseif($option == 'json'){
+            $jsonInstance = new Json();
+            $fileContent = $jsonInstance->writeBackupFileFromSQL($databaseConnection, $tables);
         }
-
+        
         //save file
-        $fileName = base_path(Define::DATABASE_PATH).$option.Helpers::FILENAME('.sql');
+        $fileName = base_path(Define::DATABASE_PATH)."mysql/$option".Helpers::FILENAME($option);
         $handle = fopen($fileName, 'w+');
-        fwrite($handle, $return);
+        fwrite($handle, $fileContent);
+
         if (fclose($handle)) {
             echo "Done, the file name is: " . $fileName;
             exit;
